@@ -1,6 +1,8 @@
 <?php
 	class Soporte
 	{
+		public const IVA = 0.21;
+		
 		public $titulo;
 		protected $numero;
 		private $precio;
@@ -19,7 +21,7 @@
 
 		public function getPrecioConIva()
 		{
-			return $this->precio * 1.21;
+			return $this->precio * (1 + self::IVA);
 		}
 
 		public function getNumero()
