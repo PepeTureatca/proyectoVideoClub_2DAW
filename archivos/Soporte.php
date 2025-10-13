@@ -1,6 +1,8 @@
 <?php
 	class Soporte
 	{
+		public const IVA = 0.16;
+		
 		public $titulo;
 		protected $numero;
 		private $precio;
@@ -12,24 +14,24 @@
 			$this->precio = $precio;
 		}
 
-		public function __getPrecio($precio)
+		public function getPrecio()
 		{
 			return $this->precio;
 		}
 
-		public function __getPrecioConIva($precio)
+		public function getPrecioConIva()
 		{
-			return $this->precio * 1.21;
+			return $this->precio * (1 + self::IVA);
 		}
 
-		public function __getNumero($numero)
+		public function getNumero()
 		{
-			return $this->precio;
+			return $this->numero;
 		}
 
-		public function __muestraResumen()
+		public function muestraResumen()
 		{
-			return  ;
+			return $this->precio.$this->numero.$this->titulo;
 		}
+		
 	}
-?>
