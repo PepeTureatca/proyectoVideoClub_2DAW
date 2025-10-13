@@ -1,7 +1,7 @@
 <?php
 	class Soporte
 	{
-		public const IVA = 0.21;
+		public const IVA = 0.16;
 		
 		public $titulo;
 		protected $numero;
