@@ -12,9 +12,24 @@
 			$this->precio = $precio;
 		}
 
-		public function __getPrecio($numero)
+		public function getPrecio()
 		{
 			return $this->precio;
 		}
+
+		public function getPrecioConIva()
+		{
+			return $this->precio * 1.21;
+		}
+
+		public function getNumero()
+		{
+			return $this->numero;
+		}
+
+		public function muestraResumen()
+		{
+			return $this->precio.$this->numero.$this->titulo;
+		}
+		
 	}
-?>

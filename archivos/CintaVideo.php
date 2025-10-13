@@ -9,9 +9,9 @@ class CintaVideo extends Soporte
 
         $this->duracion = $duracion;
     }
-    public function __muestraResumen()
+    public function muestraResumen()
 		{
-            parent::__muestraResumen();
+            parent::muestraResumen();
 		}
 	}
 
