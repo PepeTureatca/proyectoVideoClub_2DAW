@@ -14,4 +14,5 @@ class CintaVideo extends Soporte
             parent::__muestraResumen();
 		}
 	}
+    
 
