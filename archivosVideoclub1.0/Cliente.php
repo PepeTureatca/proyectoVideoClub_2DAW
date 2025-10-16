@@ -29,6 +29,35 @@ class Cliente
         return $this->numSoportesAlquilados;
     }
 
+
+    public function tieneAlquilado(Soporte $s): bool
+    {
+        foreach ($this->soportesAlquilados as $soporte) 
+            {
+            if ($soporte === $s) {
+               return  true;
+            }
+        }
+        return false;
+    }
+
+    public function alquilar(Soporte $s): bool
+    {
+        
+            if ($this->tieneAlquilado($s) >= $this->maxAlquilerConcurrente) 
+            {
+                echo "Está alquilado o Ha superado el cupo de alquileres";
+               return  false;
+            }
+            else
+            {
+                $this->numSoportesAlquilados++;
+                $this->soportesAlquilados[]= $s;
+            }
+            echo "<br> <b>Alquilado soporte a:</b> ".$this->nombre;
+        return true;
+    }
+
     public function muestraResumen()
     {
         echo "Nombre: {$this->nombre}<br>";
