@@ -54,7 +54,7 @@ class Videoclub
     }
     public function listarSocios()
     {
-        echo "Listado de " . count($this->socios) . " socios del videoclub:<br>";
+        echo "Listado de " . count($this->socios) . "socios del videoclub:<br>";
         foreach ($this->socios as $key => $cliente) {
             echo ($key + 1) . ".- Cliente " . ($key + 1) . ": " . $cliente->nombre . "<br>";
         }
