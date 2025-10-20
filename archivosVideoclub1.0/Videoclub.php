@@ -21,19 +21,22 @@ class Videoclub
     {
         $this->nombre = $nombre;
     }
-    private function incluirProducto(Soporte $producto) {
-        $this->productos = $producto;
-        echo "Incluido soporte {$this->numProductos}";
+    private function incluirProducto(Soporte $producto)
+    {
+        $this->productos[] = $producto;
+        echo "<br>Incluido soporte {$this->numProductos}";
         $this->numProductos++;
     }
 
-    public function incluirCintaVideo($titulo, $precio, $duracion) {
+    public function incluirCintaVideo($titulo, $precio, $duracion)
+    {
         $numero = count($this->productos) + 1;
-        $nuevoCintavideo = new CintaVideo($titulo, $numero,$precio, $duracion);
+        $nuevoCintavideo = new CintaVideo($titulo, $numero, $precio, $duracion);
         $this->incluirProducto(producto: $nuevoCintavideo);
     }
 
-    public function Dvd($titulo, $precio, $idiomas, $pantalla) {
+    public function incluirDvd($titulo, $precio, $idiomas, $pantalla)
+    {
         $numero = count($this->productos) + 1;
         $nuevoDvd = new Dvd($titulo, $numero, $precio, $idiomas, $pantalla);
         $this->incluirProducto(producto: $nuevoDvd);
@@ -48,7 +51,7 @@ class Videoclub
 
     public function incluirSocio($nombre, $maxAlquileresConcurrentes = 3)
     {
-        $numero = count($this->socios) + 1;
+        $numero = count($this->socios);
         $nuevoCliente = new Cliente($nombre, $numero, $maxAlquileresConcurrentes);
         $this->socios[] = $nuevoCliente;
         $this->numSocios = count($this->socios);
@@ -58,22 +61,22 @@ class Videoclub
 
     public function listarProductos()
     {
-        echo "Listado de los " . count($this->productos) . " productos disponibles: ";
+        echo "<br>Listado de los " . count($this->productos) . " productos disponibles: ";
         foreach ($this->productos as $key => $producto) {
-            echo ($key + 1) . ".- ";
+            echo "<br>". ($key + 1) . ".- ";
             if ($producto instanceof Juego) {
-                echo "Juego para " . $producto->consola . ": ";
+                echo "Juego para: " . $producto->consola;
             } else if ($producto instanceof Dvd) {
                 echo "DVD: ";
             }
-            echo $producto->getTitulo() . "<br>";
+            echo $producto->muestraResumen() . "<br>";
         }
     }
     public function listarSocios()
     {
-        echo "Listado de " . count($this->socios) . "socios del videoclub:<br>";
+        echo "Listado de " . count($this->socios) . " socios del videoclub:<br>";
         foreach ($this->socios as $key => $cliente) {
-            echo ($key + 1) . ".- Cliente " . ($key + 1) . ": " . $cliente->nombre . "<br>";
+            echo ($key + 1) . ".- Cliente " . ($key + 1) . ": " . $cliente->muestraResumen() . "<br>";
         }
     }
 
