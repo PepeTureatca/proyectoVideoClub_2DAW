@@ -8,7 +8,6 @@ class Videoclub
     private $socios = [];
     private $numSocios;
  
-<<<<<<< HEAD
     private function incluirProducto()
     {
 
@@ -28,26 +27,6 @@ class Videoclub
     {
         
     }
-=======
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-
-
-
-
-
-
-    
-    
     
     public function incluirSocio($nombre, $maxAlquieresConcurrentes = 3){
 
@@ -61,5 +40,4 @@ class Videoclub
     public function alquilarSocioProducto($numeroCliente, $numeroSoporte){
 
     }
->>>>>>> a1bd3e93da292c6c663b620b48d8fa7df462c99f
 }
