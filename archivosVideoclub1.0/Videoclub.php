@@ -1,21 +1,28 @@
 <?php
+spl_autoload(Juego.php, );
 class Videoclub
 {
-
     private $nombre;
     private $productos = [];
     private $numProductos;
     private $socios = [];
     private $numSocios;
  
-    private function incluirProducto()
+    public function __construct($nombre)
     {
+        $this->nombre = $nombre;
+    }
 
+    private function incluirProducto(Soporte $producto)
+    {
+        $this->productos = $producto;
+        echo "Incluido soporte {$this->numProductos}";
+        $this->numProductos++;
     }
 
     public function incluirCintaVideo($titulo, $precio, $duracion)
     {
-
+        CintaVideo
     }
 
     public function Dvd ($titulo, $precio, $idiomas, $pantalla)
