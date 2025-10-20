@@ -22,14 +22,26 @@ class Videoclub
         $this->nombre = $nombre;
     }
     private function incluirProducto(Soporte $producto) {
-        
+        $this->productos = $producto;
+        echo "Incluido soporte {$this->numProductos}";
+        $this->numProductos++;
     }
 
-    public function incluirCintaVideo($titulo, $precio, $duracion) {}
+    public function incluirCintaVideo($titulo, $precio, $duracion) {
+        $numero = count($this->productos) + 1;
+        $nuevoCintavideo = new CintaVideo($titulo, $numero,$precio, $duracion);
+        $this->incluirProducto(producto: $nuevoCintavideo);
+    }
 
-    public function Dvd($titulo, $precio, $idiomas, $pantalla) {}
+    public function Dvd($titulo, $precio, $idiomas, $pantalla) {
+        $numero = count($this->productos) + 1;
+        $nuevoDvd = new Dvd($titulo, $numero, $precio, $idiomas, $pantalla);
+        $this->incluirProducto(producto: $nuevoDvd);
+    }
 
-    public function incluirJuego($titulo, $precio, $consola, $minJ, $maxJ) {}
+    public function incluirJuego($titulo, $precio, $consola, $minJ, $maxJ) {
+        
+    }
 
     public function incluirSocio($nombre, $maxAlquileresConcurrentes = 3)
     {
