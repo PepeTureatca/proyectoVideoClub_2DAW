@@ -21,15 +21,18 @@ class Videoclub
     {
         $this->nombre = $nombre;
     }
-    private function incluirProducto(Soporte $producto) {
-        
-    }
+    private function incluirProducto(Soporte $producto) {}
 
     public function incluirCintaVideo($titulo, $precio, $duracion) {}
 
     public function Dvd($titulo, $precio, $idiomas, $pantalla) {}
 
-    public function incluirJuego($titulo, $precio, $consola, $minJ, $maxJ) {}
+    public function incluirJuego($titulo, $precio, $consola, $minJ, $maxJ)
+    {
+        $numero = count($this->productos) + 1;
+        $nuevoJuego = new Juego($titulo, $numero, $precio, $consola, $minJ, $maxJ);
+        $this->incluirProducto($nuevoJuego);
+    }
 
     public function incluirSocio($nombre, $maxAlquileresConcurrentes = 3)
     {
@@ -61,8 +64,6 @@ class Videoclub
             echo ($key + 1) . ".- Cliente " . ($key + 1) . ": " . $cliente->nombre . "<br>";
         }
     }
-
-
 
     public function alquilarSocioProducto($numeroCliente, $numeroSoporte) {}
 }
