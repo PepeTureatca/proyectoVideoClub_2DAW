@@ -8,7 +8,6 @@ spl_autoload_register(function ($class) {
     }
 });
 
-
 class Videoclub
 {
 
