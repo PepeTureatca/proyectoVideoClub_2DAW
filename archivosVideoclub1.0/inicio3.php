@@ -12,9 +12,9 @@ $vc->incluirJuego("The Last of Us Part II", 49.99, "PS4", 1, 1);
 $vc->incluirCintaVideo("Los cazafantasmas", 3.5, 107);
 $vc->incluirCintaVideo("El nombre de la Rosa", 1.5, 140);
 
-//listo los productos 
+/* //listo los productos 
 $vc->listarProductos();
-
+ */
 //voy a crear algunos socios 
 $vc->incluirSocio("Amancio Ortega");
 $vc->incluirSocio("Pablo Picasso", 2);
