@@ -80,5 +80,11 @@ class Videoclub
         }
     }
 
-    public function alquilarSocioProducto($numeroCliente, $numeroSoporte) {}
+    public function alquilaSocioProducto($numeroCliente, $numeroSoporte) {
+
+        foreach ($this->socios as $key => $cliente) {
+            echo "Alquilado soporte a {$cliente->nombre}<br>";
+        }
+
+    }
 }

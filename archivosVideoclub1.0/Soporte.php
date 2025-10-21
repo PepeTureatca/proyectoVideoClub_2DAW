@@ -1,8 +1,10 @@
 <?php
 
-class Soporte
+abstract class Soporte 
 {
-	public const IVA = 0.16;
+	//¿Qué conseguimos al hacerla abstracta?
+	//
+	public const IVA = 0.16;//Lo dejamos así para que de el mismo resultado.
 	public $titulo;
 	protected $numero;
 	private $precio;
