@@ -1,12 +1,11 @@
 <?php
-spl_autoload_register(function ($class) {
-    $archivo = __DIR__ . '/' . $class . '.php';
-    if (file_exists($archivo)) {
-        require_once $archivo;
-    } else {
-        echo "No se encontró la clase $class en $archivo<br>";
-    }
-});
+namespace Dwes\ProyectoVideoclub;
+
+include_once 'Soporte.php';
+include_once 'Cliente.php';
+include_once 'Juego.php';
+include_once 'Dvd.php';
+include_once 'CintaVideo.php';
 
 class Videoclub
 {
@@ -86,5 +85,6 @@ class Videoclub
     public function alquilaSocioProducto($numeroCliente, $numeroSoporte)
     {
         $this->socios[$numeroCliente]->alquilar($this->productos[$numeroSoporte]);
+        return $this;
     }
 }
