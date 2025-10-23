@@ -1,5 +1,5 @@
 <?php
-include_once "Videoclub.php";
+include_once "../Videoclub.php";
 
 use Dwes\ProyectoVideoclub\Videoclub;
 

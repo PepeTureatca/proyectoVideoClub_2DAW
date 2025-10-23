@@ -1,15 +1,15 @@
 <?php
 
-include_once "Soporte.php";
-include_once "CintaVideo.php";
-include_once "Dvd.php";
-include_once "Juego.php";
-include_once "Cliente.php";
-
+use Dwes\ProyectoVideoclub\Cliente;
 use Dwes\ProyectoVideoclub\CintaVideo;
 use Dwes\ProyectoVideoclub\Dvd;
 use Dwes\ProyectoVideoclub\Juego;
-use Dwes\ProyectoVideoclub\Cliente;
+
+include_once "../Soporte.php";
+include_once "../CintaVideo.php";
+include_once "../Dvd.php";
+include_once "../Juego.php";
+include_once "../Cliente.php";
 
 //instanciamos un par de objetos cliente
 $cliente1 = new Cliente("Bruce Wayne ", 23);

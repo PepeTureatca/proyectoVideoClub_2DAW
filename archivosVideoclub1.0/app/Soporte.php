@@ -1,5 +1,4 @@
 <?php
-
 namespace Dwes\ProyectoVideoclub;
 
 class Soporte
@@ -11,7 +10,7 @@ class Soporte
 	protected $numero;
 	private $precio;
 
-	public function __construct($titulo, $numero, $precio)
+	public function __construct($titulo, $numero, $precio,)
 	{
 		$this->titulo = $titulo;
 		$this->numero = $numero;
@@ -30,7 +29,7 @@ class Soporte
 
 	public function getNumero()
 	{
-		return $this->numero;
+		return $this->precio;
 	}
 
 	public function muestraResumen()
