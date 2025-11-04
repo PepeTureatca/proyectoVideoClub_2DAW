@@ -1,4 +1,8 @@
 <?php
+
+namespace Dwes\ProyectoVideoclub;
+
+
 class CintaVideo extends Soporte
 {
     private $duracion;
@@ -11,9 +15,8 @@ class CintaVideo extends Soporte
     }
 
     public function muestraResumen()
-		{
-            parent::muestraResumen();
-            echo "<br> Duración: ".$this->duracion." minutos";
-		}
-	}
-
+    {
+        parent::muestraResumen();
+        echo "<br> Duración: " . $this->duracion . " minutos";
+    }
+}

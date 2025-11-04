@@ -1,4 +1,8 @@
 <?php
+
+namespace Dwes\ProyectoVideoclub;
+
+
 class Cliente
 {
     public $nombre;
@@ -40,15 +44,16 @@ class Cliente
         return false;
     }
 
-    public function alquilar(Soporte $s): bool
+    public function alquilar(Soporte $s)
     {
         if ($this->tieneAlquilado($s)) {
-            return false;
+            throw new Util\SoporteYaAlquiladoException;
+            return $this;
         }
 
         if (count($this->soportesAlquilados) >= $this->maxAlquilerConcurrente) {
             echo "<br>Este cliente tiene " . count($this->soportesAlquilados) . " elementos alquilados. No puede alquilar más en este videoclub hasta que no devuelva algo<br>";
-            return false;
+            return $this;
         }
 
         $this->soportesAlquilados[] = $s;
@@ -56,10 +61,10 @@ class Cliente
         echo "<br><br>** Alquilado soporte a**: {$this->nombre}<br><br>";
         echo $s->muestraResumen() . "<br>";
 
-        return true;
+        return $this;
     }
 
-    public function devolver(int $numSoporte): bool
+    public function devolver(int $numSoporte)
     {
         $encontrado = false;
         $nuevoAlquileres = [];
@@ -76,11 +81,11 @@ class Cliente
         $this->soportesAlquilados = $nuevoAlquileres;
 
         if (!$encontrado) {
-            echo "<br>No se ha podido encontrar el soporte en los alquileres de este cliente<br>";
-            return false;
+            throw new Util\SoporteNoEncontradoException;
+            return $this;
         }
 
-        return true;
+        return $this;
     }
 
     public function listarAlquileres(): void

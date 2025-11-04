@@ -1,5 +1,6 @@
 <?php
-include_once "Videoclub.php"; // No incluimos nada más
+
+use Dwes\ProyectoVideoclub\Videoclub;
 
 $vc = new Videoclub("Severo 8A");
 
@@ -12,7 +13,7 @@ $vc->incluirDvd("El Imperio Contraataca", 3, "es,en", "16:9");
 $vc->incluirCintaVideo("Los cazafantasmas", 3.5, 107);
 $vc->incluirCintaVideo("El nombre de la Rosa", 1.5, 140);
 
- //listo los productos 
+//listo los productos 
 $vc->listarProductos();
 
 //voy a crear algunos socios 

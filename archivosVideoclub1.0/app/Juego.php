@@ -1,4 +1,8 @@
 <?php
+
+namespace Dwes\ProyectoVideoclub;
+
+
 class Juego extends Soporte
 {
     public $consola;
@@ -16,11 +20,9 @@ class Juego extends Soporte
 
     public function muestraJugadoresPosibles()
     {
-        if ($this->minNumJugadores == 1 && $this->maxNumJugadores == 1) 
-        {
+        if ($this->minNumJugadores == 1 && $this->maxNumJugadores == 1) {
             echo "<br> Para un jugador";
-        }else
-        {
+        } else {
             echo "<br> Para varios jugadores";
         }
     }
