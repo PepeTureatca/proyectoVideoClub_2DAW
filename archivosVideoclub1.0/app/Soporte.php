@@ -1,5 +1,7 @@
 <?php
 
+namespace Dwes\ProyectoVideoclub;
+
 class Soporte
 {
 	//¿Qué conseguimos al hacerla abstracta?
@@ -8,6 +10,7 @@ class Soporte
 	public $titulo;
 	protected $numero;
 	private $precio;
+	public $alquilado = false;
 
 	public function __construct($titulo, $numero, $precio,)
 	{

@@ -1,12 +1,7 @@
 <?php
-spl_autoload_register(function ($class) {
-    $archivo = __DIR__ . '/' . $class . '.php';
-    if (file_exists($archivo)) {
-        require_once $archivo;
-    } else {
-        echo "No se encontró la clase $class en $archivo<br>";
-    }
-});
+
+namespace Dwes\ProyectoVideoclub;
+
 
 class Videoclub
 {
@@ -16,11 +11,36 @@ class Videoclub
     private $numProductos = 0;
     private $socios = [];
     private $numSocios = 0;
+    private $numProductosAlquilados = 0;
+    private $numTotalAlquileres = 0;
+
 
     public function __construct($nombre)
     {
         $this->nombre = $nombre;
     }
+
+
+    function getNumProductosAlquilados()
+    {
+        return $this->numProductosAlquilados;
+    }
+
+    function getNumTotalAlquileres()
+    {
+        return $this->numTotalAlquileres;
+    }
+
+    function setNumProductosAlquilados($numProductosAlquilados)
+    {
+        $this->numProductosAlquilados = $numProductosAlquilados;
+    }
+
+    function setNumTotalAlquileres($numTotalAlquileres)
+    {
+        $this->numTotalAlquileres = $numTotalAlquileres;
+    }
+
     private function incluirProducto(Soporte $producto)
     {
         $this->productos[] = $producto;
@@ -86,5 +106,49 @@ class Videoclub
     public function alquilaSocioProducto($numeroCliente, $numeroSoporte)
     {
         $this->socios[$numeroCliente]->alquilar($this->productos[$numeroSoporte]);
+        return $this;
     }
+
+public function alquilarSocioProductos(int $numSocio, array $numerosProductos)
+{
+    $socio = $this->socios[$numSocio];
+
+    foreach ($numerosProductos as $numProducto) {
+        if ($this->productos[$numProducto]->alquilado) {
+            echo "<br>El producto {$numProducto} no está disponible.";
+            return $this; 
+        }
+    }
+
+    foreach ($numerosProductos as $numProducto) {
+        $producto = $this->productos[$numProducto];
+        $socio->alquilar($producto);
+        $producto->alquilado = true;
+        $this->numProductosAlquilados++;
+        $this->numTotalAlquileres++;
+    }
+
+    return $this;
+}
+
+public function devolverSocioProducto(int $numSocio, int $numProducto)
+{
+    $producto = $this->productos[$numProducto];
+    $socio = $this->socios[$numSocio];
+
+    $socio->devolver($producto); 
+    $producto->alquilado = false;
+    $this->numProductosAlquilados--;
+
+    return $this;
+}
+
+public function devolverSocioProductos(int $numSocio, array $numerosProductos)
+{
+    foreach ($numerosProductos as $numProducto) {
+        $this->devolverSocioProducto($numSocio, $numProducto);
+    }
+
+    return $this;
+}
 }
