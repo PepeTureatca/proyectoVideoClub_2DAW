@@ -109,7 +109,46 @@ class Videoclub
         return $this;
     }
 
-    public function devolverSocioProducto($numSocios, $numProductos) {}
+public function alquilarSocioProductos(int $numSocio, array $numerosProductos)
+{
+    $socio = $this->socios[$numSocio];
 
-    public function devolverSocioProductos($numSocios, $productos) {}
+    foreach ($numerosProductos as $numProducto) {
+        if ($this->productos[$numProducto]->alquilado) {
+            echo "<br>El producto {$numProducto} no está disponible.";
+            return $this; 
+        }
+    }
+
+    foreach ($numerosProductos as $numProducto) {
+        $producto = $this->productos[$numProducto];
+        $socio->alquilar($producto);
+        $producto->alquilado = true;
+        $this->numProductosAlquilados++;
+        $this->numTotalAlquileres++;
+    }
+
+    return $this;
+}
+
+public function devolverSocioProducto(int $numSocio, int $numProducto)
+{
+    $producto = $this->productos[$numProducto];
+    $socio = $this->socios[$numSocio];
+
+    $socio->devolver($producto); 
+    $producto->alquilado = false;
+    $this->numProductosAlquilados--;
+
+    return $this;
+}
+
+public function devolverSocioProductos(int $numSocio, array $numerosProductos)
+{
+    foreach ($numerosProductos as $numProducto) {
+        $this->devolverSocioProducto($numSocio, $numProducto);
+    }
+
+    return $this;
+}
 }
