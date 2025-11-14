@@ -103,6 +103,12 @@ class Cliente
     }
 
 
+    // GET ALQUILERES PARA MAINCLIENTE
+    public function getAlquileres(): array
+    {
+        return $this->soportesAlquilados;
+    }
+
     public function muestraResumen()
     {
         echo "Nombre: {$this->nombre}<br>";
