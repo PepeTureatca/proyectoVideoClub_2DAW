@@ -1,0 +1,181 @@
+<?php
+
+namespace Dwes\ProyectoVideoclub;
+
+
+class Videoclub
+{
+
+    private $nombre;
+    private $productos = [];
+    private $numProductos = 0;
+    private $socios = [];
+    private $numSocios = 0;
+    private $numProductosAlquilados = 0;
+    private $numTotalAlquileres = 0;
+
+
+    public function __construct($nombre)
+    {
+        $this->nombre = $nombre;
+    }
+
+
+    function getNumProductosAlquilados()
+    {
+        return $this->numProductosAlquilados;
+    }
+
+    function getNumTotalAlquileres()
+    {
+        return $this->numTotalAlquileres;
+    }
+
+    function setNumProductosAlquilados($numProductosAlquilados)
+    {
+        $this->numProductosAlquilados = $numProductosAlquilados;
+    }
+
+    function setNumTotalAlquileres($numTotalAlquileres)
+    {
+        $this->numTotalAlquileres = $numTotalAlquileres;
+    }
+
+    private function incluirProducto(Soporte $producto)
+    {
+        $this->productos[] = $producto;
+        echo "<br>Incluido soporte {$this->numProductos}";
+        $this->numProductos++;
+    }
+
+    public function incluirCintaVideo($titulo, $precio, $duracion)
+    {
+        $numero = count($this->productos) + 1;
+        $nuevoCintavideo = new CintaVideo($titulo, $numero, $precio, $duracion);
+        $this->incluirProducto(producto: $nuevoCintavideo);
+    }
+
+    public function incluirDvd($titulo, $precio, $idiomas, $pantalla)
+    {
+        $numero = count($this->productos) + 1;
+        $nuevoDvd = new Dvd($titulo, $numero, $precio, $idiomas, $pantalla);
+        $this->incluirProducto(producto: $nuevoDvd);
+    }
+
+    public function incluirJuego($titulo, $precio, $consola, $minJ, $maxJ)
+    {
+        $numero = count($this->productos) + 1;
+        $nuevoJuego = new Juego($titulo, $numero, $precio, $consola, $minJ, $maxJ);
+        $this->incluirProducto($nuevoJuego);
+    }
+
+    public function incluirSocio($nombre, $apellidos, $maxAlquileresConcurrentes = 3, $usuario = null, $password = null)
+    {
+        $numero = count($this->socios);
+        $nuevoCliente = new Cliente($nombre, $apellidos, $numero, $maxAlquileresConcurrentes, $usuario, $password);
+        $this->socios[] = $nuevoCliente;
+        $this->numSocios = count($this->socios);
+    }
+
+
+    public function listarProductos()
+    {
+        echo "<br><br>Listado de los " . count($this->productos) . " productos disponibles: ";
+        foreach ($this->productos as $key => $producto) {
+            echo "<br>" . ($key + 1) . ".- ";
+            if ($producto instanceof Juego) {
+                echo "Juego para: " . $producto->consola;
+            } else if ($producto instanceof Dvd) {
+                echo "Película en DVD:";
+            } else if ($producto instanceof CintaVideo) {
+                echo "Película en VHS:";
+            }
+            echo $producto->muestraResumen() . "<br>";
+        }
+    }
+    public function listarSocios()
+    {
+        echo "<br><br>Listado de " . count($this->socios) . " socios del videoclub:<br>";
+        foreach ($this->socios as $key => $cliente) {
+            echo ($key + 1) . ".- Cliente " . $key . ": " . $cliente->nombre . "<br>";
+            echo "Alquileres actuales: " . $cliente->getNumSoportesAlquilados() . "<br>";
+        }
+    }
+
+    public function alquilaSocioProducto($numeroCliente, $numeroSoporte)
+    {
+        $this->socios[$numeroCliente]->alquilar($this->productos[$numeroSoporte]);
+        return $this;
+    }
+
+<<<<<<<< HEAD:archivosVideoclub3.0/app/Videoclub.php
+public function alquilarSocioProductos(int $numSocio, array $numerosProductos)
+{
+    $socio = $this->socios[$numSocio];
+
+    foreach ($numerosProductos as $numProducto) {
+        if ($this->productos[$numProducto]->alquilado) {
+            echo "<br>El producto {$numProducto} no está disponible.";
+            return $this; 
+        }
+    }
+
+    foreach ($numerosProductos as $numProducto) {
+        $producto = $this->productos[$numProducto];
+        $socio->alquilar($producto);
+        $producto->alquilado = true;
+        $this->numProductosAlquilados++;
+        $this->numTotalAlquileres++;
+    }
+
+    return $this;
+}
+
+public function devolverSocioProducto(int $numSocio, int $numProducto)
+{
+    $producto = $this->productos[$numProducto];
+    $socio = $this->socios[$numSocio];
+
+    $socio->devolver($producto); 
+    $producto->alquilado = false;
+    $this->numProductosAlquilados--;
+
+    return $this;
+}
+
+public function devolverSocioProductos(int $numSocio, array $numerosProductos)
+{
+    foreach ($numerosProductos as $numProducto) {
+        $this->devolverSocioProducto($numSocio, $numProducto);
+    }
+
+    return $this;
+}
+========
+    public function buscarSocioPorCredenciales($usuario, $pass)
+    {
+        foreach ($this->socios as $cliente) {
+            if ($cliente->getUsuario() == $usuario && $cliente->getPassword() == $pass) {
+                return $cliente;
+            }
+        }
+        return null;
+    }
+
+    public function getClientes()
+    {
+        return $this->socios;
+    }
+
+    public function getSoportes()
+    {
+        return $this->productos;
+    }
+
+    public function setClientes($clientes)
+    {
+        $this->socios = $clientes;
+        $this->numSocios = count($clientes);
+    }
+>>>>>>>> videoCLub3.0-Pepe:archivosVideoclub3.0/Videoclub.php
+}

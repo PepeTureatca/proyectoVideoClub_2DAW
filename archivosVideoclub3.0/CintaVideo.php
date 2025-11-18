@@ -15,8 +15,16 @@ class CintaVideo extends Soporte
     }
 
     public function muestraResumen()
+<<<<<<<< HEAD:archivosVideoclub3.0/app/CintaVideo.php
     {
         parent::muestraResumen();
         echo "<br> Duración: " . $this->duracion . " minutos";
     }
 }
+========
+		{
+            return parent::muestraResumen() . "<br> Duración: ".$this->duracion." minutos";
+		}
+	}
+
+>>>>>>>> videoCLub3.0-Pepe:archivosVideoclub3.0/CintaVideo.php

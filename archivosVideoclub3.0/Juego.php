@@ -20,16 +20,24 @@ class Juego extends Soporte
 
     public function muestraJugadoresPosibles()
     {
+<<<<<<<< HEAD:archivosVideoclub3.0/app/Juego.php
         if ($this->minNumJugadores == 1 && $this->maxNumJugadores == 1) {
             echo "<br> Para un jugador";
         } else {
             echo "<br> Para varios jugadores";
+========
+        if ($this->minNumJugadores == 1 && $this->maxNumJugadores == 1) 
+        {
+            return "<br> Para un jugador";
+        }else
+        {
+            return "<br> Para varios jugadores";
+>>>>>>>> videoCLub3.0-Pepe:archivosVideoclub3.0/Juego.php
         }
     }
 
     public function muestraResumen()
     {
-        parent::muestraResumen();
-        echo $this->muestraJugadoresPosibles();
+        return parent::muestraResumen() . $this->muestraJugadoresPosibles();
     }
 }
