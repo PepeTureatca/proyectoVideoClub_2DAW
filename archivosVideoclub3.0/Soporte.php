@@ -31,9 +31,12 @@ class Soporte
 		return $this->precio;
 	}
 
+    public function getTitulo(){
+        return $this->titulo;
+    }
+
 	public function muestraResumen()
 	{
-		echo "<br>" . "<em>" . $this->titulo . "</em>";
-		echo "<br>" . $this->getPrecio() . " €" . " (IVA no incluido)";
+		return "<br>" . "<em>" . $this->titulo . "</em>" . "<br>" . $this->getPrecio() . " €" . " (IVA no incluido)";
 	}
 }

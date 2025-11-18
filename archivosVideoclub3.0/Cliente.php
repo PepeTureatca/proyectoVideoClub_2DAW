@@ -2,20 +2,22 @@
 class Cliente
 {
     public $nombre;
+    public $apellidos;
     private $numero;
     private $soportesAlquilados = [];
     private $numSoportesAlquilados = 0;
     private $maxAlquilerConcurrente;
 
-    private $user;
-    private $password;
+    public $usuario;
+    public $password;
 
-    public function __construct($nombre, $numero, $maxAlquilerConcurrente = 3, $user = "", $password = "")
+    public function __construct($nombre, $apellidos, $numero, $maxAlquilerConcurrente = 3, $usuario = "", $password = "")
     {
         $this->nombre = $nombre;
+        $this->apellidos = $apellidos;
         $this->numero = $numero;
         $this->maxAlquilerConcurrente = $maxAlquilerConcurrente;
-        $this->user = $user;
+        $this->usuario = $usuario;
         $this->password = $password;
     }
 
@@ -38,7 +40,8 @@ class Cliente
     {
         foreach ($this->soportesAlquilados as $soporte) {
             if ($soporte === $s) {
-                echo "<br>El cliente ya tiene alquilado el soporte {$s->titulo}<br>";
+                // Silenciamos la salida para no interferir con las vistas
+                // echo "<br>El cliente ya tiene alquilado el soporte {$s->titulo}<br>";
                 return true;
             }
         }
@@ -52,14 +55,14 @@ class Cliente
         }
 
         if (count($this->soportesAlquilados) >= $this->maxAlquilerConcurrente) {
-            echo "<br>Este cliente tiene " . count($this->soportesAlquilados) . " elementos alquilados. No puede alquilar más en este videoclub hasta que no devuelva algo<br>";
+            // echo "<br>Este cliente tiene " . count($this->soportesAlquilados) . " elementos alquilados. No puede alquilar más en este videoclub hasta que no devuelva algo<br>";
             return false;
         }
 
         $this->soportesAlquilados[] = $s;
         $this->numSoportesAlquilados++;
-        echo "<br><br>** Alquilado soporte a**: {$this->nombre}<br><br>";
-        echo $s->muestraResumen() . "<br>";
+        // echo "<br><br>** Alquilado soporte a**: {$this->nombre}<br><br>";
+        // echo $s->muestraResumen() . "<br>";
 
         return true;
     }
@@ -71,7 +74,7 @@ class Cliente
 
         foreach ($this->soportesAlquilados as $indice => $soporte) {
             if ($indice === $numSoporte) {
-                echo "<br>El soporte {$soporte->titulo} ha sido devuelto por {$this->nombre}<br>";
+                // echo "<br>El soporte {$soporte->titulo} ha sido devuelto por {$this->nombre}<br>";
                 $encontrado = true;
                 continue;
             }
@@ -81,7 +84,7 @@ class Cliente
         $this->soportesAlquilados = $nuevoAlquileres;
 
         if (!$encontrado) {
-            echo "<br>No se ha podido encontrar el soporte en los alquileres de este cliente<br>";
+            // echo "<br>No se ha podido encontrar el soporte en los alquileres de este cliente<br>";
             return false;
         }
 
@@ -111,7 +114,16 @@ class Cliente
 
     public function muestraResumen()
     {
-        echo "Nombre: {$this->nombre}<br>";
-        echo "Total de alquileres realizados: {$this->numSoportesAlquilados}<br>";
+        return "<strong>Nombre:</strong> " . $this->nombre . " " . $this->apellidos . " | <strong>Usuario:</strong> " . $this->usuario . " | <strong>Alquileres:</strong> " . $this->numSoportesAlquilados;
+    }
+
+    public function getUsuario()
+    {
+        return $this->usuario;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
     }
 }

@@ -49,13 +49,12 @@ class Videoclub
         $this->incluirProducto($nuevoJuego);
     }
 
-    public function incluirSocio($nombre, $maxAlquileresConcurrentes = 3)
+    public function incluirSocio($nombre, $apellidos, $maxAlquileresConcurrentes = 3, $usuario = null, $password = null)
     {
         $numero = count($this->socios);
-        $nuevoCliente = new Cliente($nombre, $numero, $maxAlquileresConcurrentes);
+        $nuevoCliente = new Cliente($nombre, $apellidos, $numero, $maxAlquileresConcurrentes, $usuario, $password);
         $this->socios[] = $nuevoCliente;
         $this->numSocios = count($this->socios);
-        echo "<br><br>Incluido socio " . $numero;
     }
 
 
@@ -86,5 +85,31 @@ class Videoclub
     public function alquilaSocioProducto($numeroCliente, $numeroSoporte)
     {
         $this->socios[$numeroCliente]->alquilar($this->productos[$numeroSoporte]);
+    }
+
+    public function buscarSocioPorCredenciales($usuario, $pass)
+    {
+        foreach ($this->socios as $cliente) {
+            if ($cliente->getUsuario() == $usuario && $cliente->getPassword() == $pass) {
+                return $cliente;
+            }
+        }
+        return null;
+    }
+
+    public function getClientes()
+    {
+        return $this->socios;
+    }
+
+    public function getSoportes()
+    {
+        return $this->productos;
+    }
+
+    public function setClientes($clientes)
+    {
+        $this->socios = $clientes;
+        $this->numSocios = count($clientes);
     }
 }

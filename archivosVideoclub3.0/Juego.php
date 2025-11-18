@@ -18,16 +18,15 @@ class Juego extends Soporte
     {
         if ($this->minNumJugadores == 1 && $this->maxNumJugadores == 1) 
         {
-            echo "<br> Para un jugador";
+            return "<br> Para un jugador";
         }else
         {
-            echo "<br> Para varios jugadores";
+            return "<br> Para varios jugadores";
         }
     }
 
     public function muestraResumen()
     {
-        parent::muestraResumen();
-        echo $this->muestraJugadoresPosibles();
+        return parent::muestraResumen() . $this->muestraJugadoresPosibles();
     }
 }
