@@ -1,5 +1,5 @@
 <?php
-include_once "Videoclub.php"; // register autoloader before session starts
+use Dwes\ProyectoVideoclub\Videoclub;
 session_start();
 if (!isset($_SESSION['usuario']) || $_SESSION['usuario'] != 'admin') {
     header("Location: index.php");

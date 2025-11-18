@@ -1,27 +1,30 @@
 <?php
 session_start();
-include_once "Videoclub.php";
 
+use Dwes\ProyectoVideoclub\Videoclub;
+
+// Recoger datos del formulario
 $usuario = isset($_POST['usuario']) ? trim($_POST['usuario']) : '';
 $pass = isset($_POST['password']) ? trim($_POST['password']) : '';
 
-
-// Cookie técnica
+// -----------------------------
+// COOKIES
+// -----------------------------
 if (isset($_POST["tecnica"])) {
     setcookie("cookie_tecnica", "1", time() + 3600, "/");
 } else {
     setcookie("cookie_tecnica", "", time() - 3600, "/");
 }
 
-// Cookie comercial
 if (isset($_POST["comercial"])) {
-    setcookie("cookie_comercial", "1", time() + 3600, "/"); 
+    setcookie("cookie_comercial", "1", time() + 3600, "/");
 } else {
     setcookie("cookie_comercial", "", time() - 3600, "/");
 }
 
-
-
+// -----------------------------
+// INICIALIZAR VIDEOCLUB
+// -----------------------------
 $vc = new Videoclub("Severo 8A");
 $vc->incluirSocio("Pepe", "Pérez", 3);
 $vc->incluirSocio("Juan", "García", 3, "usuario", "usuario");
@@ -32,7 +35,7 @@ $vc->incluirJuego("Mario Kart", 4, "Wii", 1, 4);
 // Guardamos videoclub en sesión
 $_SESSION['videoclub'] = $vc;
 
-// Guardamos datos simples en sesión
+// Guardamos datos simples
 $clientesArray = [];
 foreach ($vc->getClientes() as $c) {
     $clientesArray[] = [
@@ -44,6 +47,7 @@ foreach ($vc->getClientes() as $c) {
         'alquileres' => []
     ];
 }
+
 $soportesArray = [];
 foreach ($vc->getSoportes() as $s) {
     $soportesArray[] = [
@@ -53,28 +57,42 @@ foreach ($vc->getSoportes() as $s) {
         'precio' => isset($s->precio) ? $s->precio : null
     ];
 }
+
 $_SESSION['datos_videoclub'] = [
     'clientes' => $clientesArray,
     'soportes' => $soportesArray
 ];
 
-// -------------------------------
+// ------------------------------------
 // LOGIN
-// -------------------------------
+// ------------------------------------
+
+/*
+ * IMPORTANTE:
+ * Usamos rutas relativas sin barra inicial.
+ * Esto hace que funcione aunque el proyecto esté dentro de /REPOS/archivosVideoclub3.0/
+ */
+
+// ADMIN
 if ($usuario === "admin" && $pass === "admin") {
     $_SESSION['usuario'] = 'admin';
-    header("Location: mainAdmin.php");
+
+    header("Location: mainAdmin.php"); // ruta relativa
     exit;
 }
 
+// CLIENTE
 $cliente = $vc->buscarSocioPorCredenciales($usuario, $pass);
 if ($cliente) {
     $_SESSION['usuario'] = $usuario;
     $_SESSION['cliente'] = $cliente;
-    header("Location: mainCliente.php");
+
+    header("Location: mainCliente.php"); // ruta relativa
     exit;
 }
 
-header("Location: index.php?error=1");
+// ERROR login
+header("Location: ../../index.php?error=1"); // subir a raíz del proyecto
 exit;
+
 ?>

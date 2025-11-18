@@ -60,13 +60,9 @@ class Cliente
         }
 
         if (count($this->soportesAlquilados) >= $this->maxAlquilerConcurrente) {
-<<<<<<<< HEAD:archivosVideoclub3.0/app/Cliente.php
-            echo "<br>Este cliente tiene " . count($this->soportesAlquilados) . " elementos alquilados. No puede alquilar más en este videoclub hasta que no devuelva algo<br>";
-            return $this;
-========
+
             // echo "<br>Este cliente tiene " . count($this->soportesAlquilados) . " elementos alquilados. No puede alquilar más en este videoclub hasta que no devuelva algo<br>";
             return false;
->>>>>>>> videoCLub3.0-Pepe:archivosVideoclub3.0/Cliente.php
         }
 
         $this->soportesAlquilados[] = $s;
@@ -94,13 +90,9 @@ class Cliente
         $this->soportesAlquilados = $nuevoAlquileres;
 
         if (!$encontrado) {
-<<<<<<<< HEAD:archivosVideoclub3.0/app/Cliente.php
-            throw new Util\SoporteNoEncontradoException;
-            return $this;
-========
+
             // echo "<br>No se ha podido encontrar el soporte en los alquileres de este cliente<br>";
             return false;
->>>>>>>> videoCLub3.0-Pepe:archivosVideoclub3.0/Cliente.php
         }
 
         return $this;

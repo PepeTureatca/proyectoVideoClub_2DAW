@@ -108,50 +108,7 @@ class Videoclub
         return $this;
     }
 
-<<<<<<<< HEAD:archivosVideoclub3.0/app/Videoclub.php
-public function alquilarSocioProductos(int $numSocio, array $numerosProductos)
-{
-    $socio = $this->socios[$numSocio];
 
-    foreach ($numerosProductos as $numProducto) {
-        if ($this->productos[$numProducto]->alquilado) {
-            echo "<br>El producto {$numProducto} no está disponible.";
-            return $this; 
-        }
-    }
-
-    foreach ($numerosProductos as $numProducto) {
-        $producto = $this->productos[$numProducto];
-        $socio->alquilar($producto);
-        $producto->alquilado = true;
-        $this->numProductosAlquilados++;
-        $this->numTotalAlquileres++;
-    }
-
-    return $this;
-}
-
-public function devolverSocioProducto(int $numSocio, int $numProducto)
-{
-    $producto = $this->productos[$numProducto];
-    $socio = $this->socios[$numSocio];
-
-    $socio->devolver($producto); 
-    $producto->alquilado = false;
-    $this->numProductosAlquilados--;
-
-    return $this;
-}
-
-public function devolverSocioProductos(int $numSocio, array $numerosProductos)
-{
-    foreach ($numerosProductos as $numProducto) {
-        $this->devolverSocioProducto($numSocio, $numProducto);
-    }
-
-    return $this;
-}
-========
     public function buscarSocioPorCredenciales($usuario, $pass)
     {
         foreach ($this->socios as $cliente) {
@@ -177,5 +134,4 @@ public function devolverSocioProductos(int $numSocio, array $numerosProductos)
         $this->socios = $clientes;
         $this->numSocios = count($clientes);
     }
->>>>>>>> videoCLub3.0-Pepe:archivosVideoclub3.0/Videoclub.php
 }
