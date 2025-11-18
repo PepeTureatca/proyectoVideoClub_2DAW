@@ -5,7 +5,23 @@ include_once "Videoclub.php";
 $usuario = isset($_POST['usuario']) ? trim($_POST['usuario']) : '';
 $pass = isset($_POST['password']) ? trim($_POST['password']) : '';
 
-// Inicializamos el videoclub de pruebas (mismos datos para admin y clientes)
+
+// Cookie técnica
+if (isset($_POST["tecnica"])) {
+    setcookie("cookie_tecnica", "1", time() + 3600, "/");
+} else {
+    setcookie("cookie_tecnica", "", time() - 3600, "/");
+}
+
+// Cookie comercial
+if (isset($_POST["comercial"])) {
+    setcookie("cookie_comercial", "1", time() + 3600, "/"); 
+} else {
+    setcookie("cookie_comercial", "", time() - 3600, "/");
+}
+
+
+
 $vc = new Videoclub("Severo 8A");
 $vc->incluirSocio("Pepe", "Pérez", 3);
 $vc->incluirSocio("Juan", "García", 3, "usuario", "usuario");
@@ -13,10 +29,10 @@ $vc->incluirCintaVideo("Los Otros", 2.5, 120);
 $vc->incluirDvd("El Exorcista", 3, "es,en,fr", "16:9");
 $vc->incluirJuego("Mario Kart", 4, "Wii", 1, 4);
 
-// Siempre guardamos el objeto en sesión para el uso de las vistas actuales
+// Guardamos videoclub en sesión
 $_SESSION['videoclub'] = $vc;
 
-// También volcamos una estructura asociativa simple con los datos de clientes y soportes
+// Guardamos datos simples en sesión
 $clientesArray = [];
 foreach ($vc->getClientes() as $c) {
     $clientesArray[] = [
@@ -25,7 +41,7 @@ foreach ($vc->getClientes() as $c) {
         'numero' => $c->getNumero(),
         'usuario' => $c->getUsuario(),
         'password' => $c->getPassword(),
-        'alquileres' => [] // se podría rellenar si hiciera falta
+        'alquileres' => []
     ];
 }
 $soportesArray = [];
@@ -42,14 +58,15 @@ $_SESSION['datos_videoclub'] = [
     'soportes' => $soportesArray
 ];
 
-// Comprobación de credenciales
+// -------------------------------
+// LOGIN
+// -------------------------------
 if ($usuario === "admin" && $pass === "admin") {
     $_SESSION['usuario'] = 'admin';
     header("Location: mainAdmin.php");
     exit;
 }
 
-// Si no es admin, buscamos en los clientes cargados
 $cliente = $vc->buscarSocioPorCredenciales($usuario, $pass);
 if ($cliente) {
     $_SESSION['usuario'] = $usuario;
@@ -58,6 +75,6 @@ if ($cliente) {
     exit;
 }
 
-// Si llegamos aquí, credenciales incorrectas
 header("Location: index.php?error=1");
 exit;
+?>
